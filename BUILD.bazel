@@ -1,0 +1,27 @@
+java_library(
+    name = "foo",
+    srcs = [":Foo.java"],
+)
+
+java_library(
+    name = "bar",
+    srcs = [":Bar.java"],
+)
+
+java_binary(
+    name = "main",
+    srcs = [":Main.java"],
+    main_class = "Main",
+    deps = [
+        ":bar",
+        ":foo",
+    ],
+)
+
+platform(
+    name = "windows_x86_64",
+    constraint_values = [
+        "@platforms//os:windows",
+        "@platforms//cpu:x86_64",
+    ],
+)
