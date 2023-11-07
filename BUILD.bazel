@@ -1,3 +1,6 @@
+load(":runfiles_tree.bzl", "runfiles_tree")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_tar")
+
 java_library(
     name = "foo",
     srcs = [":Foo.java"],
@@ -24,4 +27,16 @@ platform(
         "@platforms//os:windows",
         "@platforms//cpu:x86_64",
     ],
+)
+
+runfiles_tree(
+    name = "dist_contents",
+    binaries = [":main"],
+)
+
+pkg_tar(
+    name = "dist",
+    srcs = [":dist_contents"],
+    mode = "0777",
+    strip_prefix = "/dist_contents",
 )
